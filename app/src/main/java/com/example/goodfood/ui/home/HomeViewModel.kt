@@ -15,4 +15,21 @@ class HomeViewModel @Inject constructor(
     val randomRecipesDataListener = homeRepository
         .getRandomRecipes(5, viewModelScope.coroutineContext + Dispatchers.IO)
 
+    val randomVeganRecipes = homeRepository
+        .getRandomVeganRecipes(10, viewModelScope.coroutineContext + Dispatchers.IO)
+
+    val randomDrinkRecipes = homeRepository
+        .getRandomDrinkRecipes(10, viewModelScope.coroutineContext + Dispatchers.IO)
+
+    val randomDessertRecipes = homeRepository
+        .getRandomDessertRecipes(10, viewModelScope.coroutineContext + Dispatchers.IO)
+
+    val randomSaladRecipes = homeRepository
+        .getRandomSaladRecipes(10, viewModelScope.coroutineContext + Dispatchers.IO)
+
+    val randomSoupRecipes = homeRepository
+        .getRandomSoupRecipes(10, viewModelScope.coroutineContext + Dispatchers.IO)
+
+
+
 }

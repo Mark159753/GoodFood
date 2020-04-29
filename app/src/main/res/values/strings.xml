@@ -7,4 +7,7 @@
     <string name="search_menu">Search</string>
     <string name="bookmark_menu">Bookmark</string>
     <string name="account_menu">Account</string>
+    <string name="loading_msg">Loading...</string>
+
+    <string name="name_app">Good Food</string>
 </resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="home_viewpager_height">320dp</dimen>
+    <dimen name="home_viewpager_margin">36dp</dimen>
+    <dimen name="home_viewpager_offset">26dp</dimen>
+
+    <dimen name="home_inner_item_with">117dp</dimen>
+    <dimen name="home_inner_item_height">159dp</dimen>
+    <dimen name="home_inner_item_padding">6dp</dimen>
+</resources>

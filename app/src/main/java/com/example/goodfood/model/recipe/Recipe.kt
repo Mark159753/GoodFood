@@ -1,5 +1,4 @@
 package com.example.goodfood.model.recipe
-
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -44,4 +43,9 @@ data class Recipe(
     val weightWatcherSmartPoints: Int,
     @Embedded(prefix = "wine_pairing_")
     val winePairing: WinePairing?
-)
+){
+//    @PrimaryKey(autoGenerate = true)
+//    var key:Int? = null
+
+    var typeRequest:String? = null
+}

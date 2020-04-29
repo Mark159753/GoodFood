@@ -13,7 +13,7 @@ import com.example.goodfood.untils.ListStringConverter
 
 @Database(entities = [
     Recipe::class
-], version = 5, exportSchema = false)
+], version = 9, exportSchema = false)
 @TypeConverters(
     ListStringConverter::class,
     ListAnalyzedInstructionConverter::class,

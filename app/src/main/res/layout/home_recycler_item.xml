@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:clipToPadding="false"
+    android:clipChildren="false"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/home_recycler_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Health Vegan Life"
+        android:fontFamily="@font/roboto_bold"
+        android:layout_marginLeft="12dp"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_recycler_item_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="6dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/home_inner_recycler_item"/>
+</LinearLayout>

@@ -17,10 +17,10 @@ object TimeRequestHelper {
     }
 
     @JvmStatic
-    fun isUpdateNeeded(key: String, wait:Int, context: Context):Boolean{
+    fun isUpdateNeeded(key: String, waitHour:Int, context: Context):Boolean{
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
         val requestTime = Date(preferences.getLong(key, 0L))
-        val after = Date(requestTime.time + wait * DateUtils.HOUR_IN_MILLIS)
+        val after = Date(requestTime.time + waitHour * DateUtils.HOUR_IN_MILLIS)
         return Date(Date().time).after(after)
     }
 }
