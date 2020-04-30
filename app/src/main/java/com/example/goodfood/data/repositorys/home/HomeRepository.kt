@@ -3,20 +3,26 @@ package com.example.goodfood.data.repositorys.home
 import androidx.lifecycle.LiveData
 import com.example.goodfood.model.recipe.Recipe
 import com.example.goodfood.untils.LoadState
-import kotlin.coroutines.CoroutineContext
+
 
 interface HomeRepository {
 
-    fun getRandomRecipes(numbers:Int,  scope:CoroutineContext, tags:String? = null): LiveData<LoadState<List<Recipe>>>
+    val randomRecipes: LiveData<LoadState<List<Recipe>>>
+    suspend fun getRandomRecipes(numbers:Int, forceLoad: Boolean, tags:String? = null)
 
-    fun getRandomVeganRecipes(numbers:Int,  scope:CoroutineContext): LiveData<LoadState<List<Recipe>>>
+    val randomVeganRecipes:LiveData<LoadState<List<Recipe>>>
+    suspend fun getRandomVeganRecipes(numbers:Int, forceLoad: Boolean)
 
-    fun getRandomDrinkRecipes(numbers:Int,  scope:CoroutineContext): LiveData<LoadState<List<Recipe>>>
+    val randomDrinkRecipes:LiveData<LoadState<List<Recipe>>>
+    suspend fun getRandomDrinkRecipes(numbers:Int, forceLoad: Boolean)
 
-    fun getRandomDessertRecipes(numbers:Int,  scope:CoroutineContext): LiveData<LoadState<List<Recipe>>>
+    val randomDessertRecipes:LiveData<LoadState<List<Recipe>>>
+    suspend fun getRandomDessertRecipes(numbers:Int, forceLoad: Boolean)
 
-    fun getRandomSaladRecipes(numbers:Int,  scope:CoroutineContext): LiveData<LoadState<List<Recipe>>>
+    val randomSaladRecipes:LiveData<LoadState<List<Recipe>>>
+    suspend fun getRandomSaladRecipes(numbers:Int, forceLoad: Boolean)
 
-    fun getRandomSoupRecipes(numbers:Int,  scope:CoroutineContext): LiveData<LoadState<List<Recipe>>>
+    val randomSoupRecipes:LiveData<LoadState<List<Recipe>>>
+    suspend fun getRandomSoupRecipes(numbers:Int, forceLoad: Boolean)
 
 }

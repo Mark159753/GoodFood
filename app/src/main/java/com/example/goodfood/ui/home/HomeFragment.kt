@@ -53,14 +53,17 @@ class HomeFragment : Fragment() {
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
 
-
-        initToolbar()
         initViewPager()
         initRecyclerList()
+        initRefresh()
     }
 
-    private fun initToolbar(){
 
+    private fun initRefresh(){
+        binder.homeRefresh.setOnRefreshListener {
+            viewModel.refreshRecipes()
+            binder.homeRefresh.isRefreshing = false
+        }
     }
 
     private fun initRecyclerList(){
@@ -75,19 +78,23 @@ class HomeFragment : Fragment() {
         val nestedAdapters:Array<HomeInnerRecyclerAdapter> = Array(5){ HomeInnerRecyclerAdapter()}
 
         recyclerAdapter.setAdapters(nestedAdapters)
-
+        viewModel.initRandomVeganRecipe(false)
         viewModel.randomVeganRecipes.observe(viewLifecycleOwner, Observer {
             checkAdapterLoadState(nestedAdapters[0], it)
         })
+        viewModel.initRandomDrinkRecipe(false)
         viewModel.randomDrinkRecipes.observe(viewLifecycleOwner, Observer {
             checkAdapterLoadState(nestedAdapters[1], it)
         })
+        viewModel.initRandomDessertRecipe(false)
         viewModel.randomDessertRecipes.observe(viewLifecycleOwner, Observer {
             checkAdapterLoadState(nestedAdapters[2], it)
         })
+        viewModel.initRandomSaladRecipe(false)
         viewModel.randomSaladRecipes.observe(viewLifecycleOwner, Observer {
             checkAdapterLoadState(nestedAdapters[3], it)
         })
+        viewModel.initRandomSoupRecipe(false)
         viewModel.randomSoupRecipes.observe(viewLifecycleOwner, Observer {
             checkAdapterLoadState(nestedAdapters[4], it)
         })
@@ -110,7 +117,8 @@ class HomeFragment : Fragment() {
 
     private fun initViewPager() {
         val pagerAdapter = ViewPagerAdapterR(requireContext())
-        viewModel.randomRecipesDataListener.observe(viewLifecycleOwner, Observer {
+        viewModel.initRandomRecipe(false)
+        viewModel.randomRecipes.observe(viewLifecycleOwner, Observer {
             when (it) {
                 is LoadState.LOADED -> {
                     binder.homeViewpagerLoading.visibility = View.GONE

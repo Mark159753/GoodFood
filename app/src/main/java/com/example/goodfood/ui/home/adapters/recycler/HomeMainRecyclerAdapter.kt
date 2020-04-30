@@ -13,7 +13,11 @@ import com.example.goodfood.ui.home.adapters.recyclerItemInner.HomeInnerRecycler
 class HomeMainRecyclerAdapter(context: Context) :RecyclerView.Adapter<HomeMainRecyclerAdapter.Holder>(){
 
     private val titles:Array<String> = arrayOf(
-        "Vegan", "Drink", "Dessert", "Salad", "Soup"
+        context.getString(R.string.home_category_vegan),
+        context.getString(R.string.home_category_drink),
+        context.getString(R.string.home_category_dessert),
+        context.getString(R.string.home_category_salad),
+        context.getString(R.string.home_category_soup)
     )
 
     private var adapters:Array<HomeInnerRecyclerAdapter> = emptyArray()

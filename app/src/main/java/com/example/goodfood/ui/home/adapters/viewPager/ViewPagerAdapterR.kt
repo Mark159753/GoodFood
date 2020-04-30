@@ -1,6 +1,7 @@
 package com.example.goodfood.ui.home.adapters.viewPager
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,10 @@ class ViewPagerAdapterR
     fun setDataList(list: List<Recipe>){
         this.dataList = list
         notifyDataSetChanged()
+    }
+
+    override fun getItemPosition(`object`: Any): Int {
+        return POSITION_NONE
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {

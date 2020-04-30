@@ -15,7 +15,7 @@ interface RandomRecipeDao {
     fun getAllRandomRecipes():LiveData<List<Recipe>>
 
     @Query("SELECT * FROM recipes WHERE typeRequest = :type")
-    fun getRandomRecipesByRequestType(type:String):LiveData<List<Recipe>>
+    suspend fun getRandomRecipesByRequestType(type:String):List<Recipe>
 
     @Query("DELETE FROM recipes")
     suspend fun clearAll()
