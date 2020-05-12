@@ -9,15 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import com.example.goodfood.R
-import com.example.goodfood.model.recipe.Recipe
+import com.example.goodfood.data.local.entitys.RecipeEntity
 import com.squareup.picasso.Picasso
 
 class ViewPagerAdapterR
     (private val context: Context):PagerAdapter() {
 
-    private var dataList:List<Recipe> = emptyList()
+    private var dataList:List<RecipeEntity> = emptyList()
 
-    fun setDataList(list: List<Recipe>){
+    fun setDataList(list: List<RecipeEntity>){
         this.dataList = list
         notifyDataSetChanged()
     }

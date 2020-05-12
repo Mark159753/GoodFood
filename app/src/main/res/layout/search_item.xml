@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/search_item_img_container"
+        android:layout_width="100dp"
+        android:layout_height="@dimen/search_item_height"
+        app:cardCornerRadius="10dp">
+        <ImageView
+            android:id="@+id/search_item_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="Food Image" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/search_item_img_container"
+        android:layout_marginStart="12dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/search_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Chicken Salad"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            android:fontFamily="@font/roboto_bold"/>
+        <TextView
+            android:id="@+id/search_item_source_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Foodista"
+            android:textColor="@color/searchHintColor"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:fontFamily="@font/roboto_bold"/>
+        <RatingBar
+            android:id="@+id/search_item_aggregateLikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            tools:rating="3"
+            android:layout_marginTop="6dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,8 +1,8 @@
 package com.example.goodfood.model
 
-import com.example.goodfood.model.recipe.Recipe
+import com.example.goodfood.model.recipe.RecipeResponse
 
 
 data class RandomResponse(
-    val recipes: List<Recipe>
+    val recipes: List<RecipeResponse>
 )

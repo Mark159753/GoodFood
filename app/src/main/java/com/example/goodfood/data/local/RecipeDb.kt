@@ -6,13 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.goodfood.data.local.dao.RandomRecipeDao
-import com.example.goodfood.model.recipe.Recipe
+import com.example.goodfood.data.local.entitys.RecipeEntity
 import com.example.goodfood.untils.ListAnalyzedInstructionConverter
 import com.example.goodfood.untils.ListExtendedIngredientConverter
 import com.example.goodfood.untils.ListStringConverter
 
 @Database(entities = [
-    Recipe::class
+    RecipeEntity::class
 ], version = 9, exportSchema = false)
 @TypeConverters(
     ListStringConverter::class,

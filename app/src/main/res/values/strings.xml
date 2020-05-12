@@ -16,4 +16,6 @@
     <string name="home_category_soup">Soup</string>
 
     <string name="name_app">Good Food</string>
+    <string name="search_title">Search</string>
+    <string name="search_hint">Search</string>
 </resources>

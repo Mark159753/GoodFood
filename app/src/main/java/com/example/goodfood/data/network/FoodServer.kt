@@ -2,10 +2,12 @@ package com.example.goodfood.data.network
 
 import com.example.goodfood.BuildConfig
 import com.example.goodfood.model.RandomResponse
+import com.example.goodfood.model.search.SearchResponse
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
@@ -14,6 +16,14 @@ import retrofit2.http.Query
 private const val BASE_URL = "https://api.spoonacular.com/"
 
 interface FoodServer {
+
+    @GET("recipes/search")
+    fun getSearch(
+        @Query("query") query:String,
+        @Query("number") number:Int, // max 100
+        @Query("offset") offset:Int = 0, // max 900
+        @Query("limitLicense") limitLicense:Boolean = true
+    ): Call<SearchResponse>
 
     @GET("recipes/random")
     suspend fun getRandom(

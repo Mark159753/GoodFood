@@ -8,13 +8,13 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.goodfood.R
-import com.example.goodfood.model.recipe.Recipe
+import com.example.goodfood.data.local.entitys.RecipeEntity
 import com.example.goodfood.untils.NetworkState
 import com.squareup.picasso.Picasso
 
 class HomeInnerRecyclerAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var listData:List<Recipe> = emptyList()
+    private var listData:List<RecipeEntity> = emptyList()
 
     private var networkState: NetworkState? = null
 
@@ -37,7 +37,7 @@ class HomeInnerRecyclerAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private fun hasExtraRow() = networkState != null && networkState != NetworkState.LOADED
 
 
-    fun setDataList(list: List<Recipe>){
+    fun setDataList(list: List<RecipeEntity>){
         this.listData = list
         notifyDataSetChanged()
     }

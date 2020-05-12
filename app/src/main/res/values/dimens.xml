@@ -7,4 +7,7 @@
     <dimen name="home_inner_item_with">117dp</dimen>
     <dimen name="home_inner_item_height">159dp</dimen>
     <dimen name="home_inner_item_padding">6dp</dimen>
+
+    <dimen name="horizontal_margin">12dp</dimen>
+    <dimen name="search_item_height">100dp</dimen>
 </resources>

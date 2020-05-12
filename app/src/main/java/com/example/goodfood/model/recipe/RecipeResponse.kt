@@ -1,0 +1,86 @@
+package com.example.goodfood.model.recipe
+import androidx.room.Embedded
+import com.example.goodfood.data.local.entitys.RecipeEntity
+
+
+data class RecipeResponse(
+    val id: Int,
+    val aggregateLikes: Int,
+    val analyzedInstructions: List<AnalyzedInstruction>?,
+    val cheap: Boolean,
+    val creditsText: String?,
+    val cuisines: List<String>?,
+    val dairydFree: Boolean,
+    val diets: List<String>?,
+    val dishTypes: List<String>?,
+    val extendedIngredients: List<ExtendedIngredient>?,
+    val gaps: String?,
+    val glutenFree: Boolean,
+    val healthScore: Double?,
+    val image: String?,
+    val imageType: String?,
+    val instructions: String?,
+    val license: String?,
+    val lowFodmap: Boolean,
+    val occasions: List<String>?,
+    val originalId: Int,
+    val pricePerServing: Double,
+    val readyInMinutes: Int,
+    val servings: Int,
+    val sourceName: String?,
+    val sourceUrl: String?,
+    val spoonacularScore: Double?,
+    val spoonacularSourceUrl: String?,
+    val summary: String?,
+    val sustainable: Boolean,
+    val title: String?,
+    val vegan: Boolean,
+    val vegetarian: Boolean,
+    val veryHealthy: Boolean,
+    val veryPopular: Boolean,
+    val weightWatcherSmartPoints: Int,
+    @Embedded(prefix = "wine_pairing_")
+    val winePairing: WinePairing?
+){
+
+    fun toRecipeEntity(): RecipeEntity {
+        return RecipeEntity(
+            id = id,
+            aggregateLikes = aggregateLikes,
+            analyzedInstructions = analyzedInstructions,
+            cheap = cheap,
+            creditsText = creditsText,
+            cuisines = cuisines,
+            dairyFree = dairydFree,
+            diets = diets,
+            dishTypes = dishTypes,
+            extendedIngredients = extendedIngredients,
+            gaps = gaps,
+            glutenFree = glutenFree,
+            healthScore = healthScore,
+            image = image,
+            imageType = imageType,
+            instructions = instructions,
+            license = license,
+            lowFodmap = lowFodmap,
+            occasions = occasions,
+            originalId = originalId,
+            pricePerServing = pricePerServing,
+            readyInMinutes = readyInMinutes,
+            servings = servings,
+            sourceName = sourceName,
+            sourceUrl = sourceUrl,
+            spoonacularScore = spoonacularScore,
+            spoonacularSourceUrl = spoonacularSourceUrl,
+            summary = summary,
+            sustainable = sustainable,
+            title = title,
+            vegan = vegan,
+            vegetarian = vegetarian,
+            veryHealthy = veryHealthy,
+            veryPopular = veryPopular,
+            weightWatcherSmartPoints = weightWatcherSmartPoints,
+            winePairing = winePairing
+        )
+    }
+}

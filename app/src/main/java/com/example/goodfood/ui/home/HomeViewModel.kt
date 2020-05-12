@@ -1,8 +1,9 @@
 package com.example.goodfood.ui.home
 
+import android.util.Log
 import androidx.lifecycle.*
+import com.example.goodfood.data.local.entitys.RecipeEntity
 import com.example.goodfood.data.repositorys.home.HomeRepository
-import com.example.goodfood.model.recipe.Recipe
 import com.example.goodfood.untils.LoadState
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -11,7 +12,7 @@ class HomeViewModel @Inject constructor(
     private val homeRepository: HomeRepository
 ):ViewModel() {
 
-    val randomRecipes:LiveData<LoadState<List<Recipe>>> =
+    val randomRecipes:LiveData<LoadState<List<RecipeEntity>>> =
         homeRepository.randomRecipes
 
     val randomVeganRecipes = homeRepository.randomVeganRecipes
@@ -29,6 +30,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             homeRepository.getRandomRecipes(5, forceLoad)
         }
+        Log.e("HOME_REPOSITORY", homeRepository.toString())
     }
 
     fun initRandomVeganRecipe(forceLoad:Boolean){

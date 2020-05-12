@@ -1,7 +1,5 @@
 package com.example.goodfood.model.recipe
 
-import androidx.room.Embedded
-
 
 data class ExtendedIngredient(
     val aisle: String,

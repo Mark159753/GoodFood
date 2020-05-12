@@ -9,7 +9,6 @@ import dagger.Module
 @Module
 abstract class RepositoryModule {
 
-    @FragmentScope
     @Binds
     abstract fun provideHomeRepository(repository:HomeRepositoryImpl):HomeRepository
 }

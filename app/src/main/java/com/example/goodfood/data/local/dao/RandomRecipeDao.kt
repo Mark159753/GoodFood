@@ -2,20 +2,20 @@ package com.example.goodfood.data.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.goodfood.model.recipe.Recipe
+import com.example.goodfood.data.local.entitys.RecipeEntity
 
 @Dao
 interface RandomRecipeDao {
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertRandomRecipes(list: List<Recipe>)
+    suspend fun insertRandomRecipes(list: List<RecipeEntity>)
 
     @Query("SELECT * FROM recipes")
-    fun getAllRandomRecipes():LiveData<List<Recipe>>
+    fun getAllRandomRecipes():LiveData<List<RecipeEntity>>
 
     @Query("SELECT * FROM recipes WHERE typeRequest = :type")
-    suspend fun getRandomRecipesByRequestType(type:String):List<Recipe>
+    suspend fun getRandomRecipesByRequestType(type:String):List<RecipeEntity>
 
     @Query("DELETE FROM recipes")
     suspend fun clearAll()

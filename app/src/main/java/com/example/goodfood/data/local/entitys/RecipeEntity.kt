@@ -1,10 +1,14 @@
-package com.example.goodfood.model.recipe
+package com.example.goodfood.data.local.entitys
+
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.goodfood.model.recipe.AnalyzedInstruction
+import com.example.goodfood.model.recipe.ExtendedIngredient
+import com.example.goodfood.model.recipe.WinePairing
 
 @Entity(tableName = "recipes")
-data class Recipe(
+data class RecipeEntity(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
     val aggregateLikes: Int,
@@ -44,8 +48,5 @@ data class Recipe(
     @Embedded(prefix = "wine_pairing_")
     val winePairing: WinePairing?
 ){
-//    @PrimaryKey(autoGenerate = true)
-//    var key:Int? = null
-
     var typeRequest:String? = null
 }

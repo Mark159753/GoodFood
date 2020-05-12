@@ -13,9 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.goodfood.GoodFoodApp
 
 import com.example.goodfood.R
+import com.example.goodfood.data.local.entitys.RecipeEntity
 import com.example.goodfood.databinding.FragmentHomeBinding
 import com.example.goodfood.di.ViewModelFactoryDI
-import com.example.goodfood.model.recipe.Recipe
 import com.example.goodfood.ui.MainActivity
 import com.example.goodfood.ui.home.adapters.MarginItemDecorator
 import com.example.goodfood.ui.home.adapters.recycler.HomeMainRecyclerAdapter
@@ -27,12 +27,12 @@ import com.example.goodfood.untils.NetworkState
 import javax.inject.Inject
 
 
-class HomeFragment : Fragment() {
+class HomeFragment(
+    private val viewModelFactory: ViewModelFactoryDI
+) : Fragment() {
 
     private lateinit var binder:FragmentHomeBinding
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactoryDI
     private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
@@ -45,11 +45,6 @@ class HomeFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        ((requireActivity() as MainActivity).application as GoodFoodApp)
-            .appComponent
-            .getFragmentComponent()
-            .create()
-            .inject(this)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
 
@@ -100,7 +95,7 @@ class HomeFragment : Fragment() {
         })
     }
 
-    private fun checkAdapterLoadState(adapter: HomeInnerRecyclerAdapter, state: LoadState<List<Recipe>>){
+    private fun checkAdapterLoadState(adapter: HomeInnerRecyclerAdapter, state: LoadState<List<RecipeEntity>>){
         when (state) {
             is LoadState.LOADED -> {
                 adapter.setNetworkState(NetworkState.LOADED)

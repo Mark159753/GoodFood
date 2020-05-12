@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.example.goodfood.R
+import com.example.goodfood.di.ViewModelFactoryDI
 
-class BookmarkFragment : Fragment() {
+class BookmarkFragment(
+    private val viewModelFactory: ViewModelFactoryDI
+) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
