@@ -1,16 +1,20 @@
 package com.example.goodfood.ui.user
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 
 import com.example.goodfood.R
 import com.example.goodfood.di.ViewModelFactoryDI
 
 
 class AccountFragment(private val viewModelFactory: ViewModelFactoryDI) : Fragment() {
+
+    private lateinit var viewModel: AccountViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -19,5 +23,11 @@ class AccountFragment(private val viewModelFactory: ViewModelFactoryDI) : Fragme
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_account, container, false)
     }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(AccountViewModel::class.java)
+    }
+
 
 }

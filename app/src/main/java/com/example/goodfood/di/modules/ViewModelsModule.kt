@@ -6,6 +6,7 @@ import com.example.goodfood.di.ViewModelFactoryDI
 import com.example.goodfood.di.ViewModelKey
 import com.example.goodfood.ui.home.HomeViewModel
 import com.example.goodfood.ui.search.SearchViewModel
+import com.example.goodfood.ui.user.AccountViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -22,6 +23,11 @@ abstract class ViewModelsModule {
     @IntoMap
     @ViewModelKey(SearchViewModel::class)
     abstract fun bindSearchViewModel(model:SearchViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(AccountViewModel::class)
+    abstract fun bindAccountViewModel(model:AccountViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactoryDI): ViewModelProvider.Factory

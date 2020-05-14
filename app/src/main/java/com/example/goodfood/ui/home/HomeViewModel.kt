@@ -4,71 +4,88 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.goodfood.data.local.entitys.RecipeEntity
 import com.example.goodfood.data.repositorys.home.HomeRepository
-import com.example.goodfood.untils.LoadState
-import kotlinx.coroutines.launch
+import com.example.goodfood.untils.Resource
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
-    private val homeRepository: HomeRepository
+    private val repository:HomeRepository
 ):ViewModel() {
 
-    val randomRecipes:LiveData<LoadState<List<RecipeEntity>>> =
-        homeRepository.randomRecipes
+    private var recipeJob:Job? = null
 
-    val randomVeganRecipes = homeRepository.randomVeganRecipes
+    private val _randomRecipes = MutableLiveData<Resource<List<RecipeEntity>>>()
+    val randomRecipes:LiveData<Resource<List<RecipeEntity>>>
+        get() = _randomRecipes
 
-    val randomDrinkRecipes = homeRepository.randomDrinkRecipes
+    private val _randomVeganRecipes = MutableLiveData<Resource<List<RecipeEntity>>>()
+    val randomVeganRecipes:LiveData<Resource<List<RecipeEntity>>>
+        get() = _randomVeganRecipes
 
-    val randomDessertRecipes = homeRepository.randomDessertRecipes
+    private val _randomDrinkRecipes = MutableLiveData<Resource<List<RecipeEntity>>>()
+    val randomDrinkRecipes:LiveData<Resource<List<RecipeEntity>>>
+        get() = _randomDrinkRecipes
 
-    val randomSaladRecipes = homeRepository.randomSaladRecipes
+    private val _randomDessertRecipes = MutableLiveData<Resource<List<RecipeEntity>>>()
+    val randomDessertRecipes:LiveData<Resource<List<RecipeEntity>>>
+        get() = _randomDessertRecipes
 
-    val randomSoupRecipes = homeRepository.randomSoupRecipes
+    private val _randomSaladRecipes = MutableLiveData<Resource<List<RecipeEntity>>>()
+    val randomSaladRecipes:LiveData<Resource<List<RecipeEntity>>>
+        get() = _randomSaladRecipes
 
+    private val _randomSoupRecipes = MutableLiveData<Resource<List<RecipeEntity>>>()
+    val randomSoupRecipes:LiveData<Resource<List<RecipeEntity>>>
+        get() = _randomSoupRecipes
 
-    fun initRandomRecipe(forceLoad:Boolean){
-        viewModelScope.launch {
-            homeRepository.getRandomRecipes(5, forceLoad)
+    init {
+        refreshRecipes(false)
+    }
+
+    fun refreshRecipes(forceLoad:Boolean){
+        recipeJob?.cancel()
+        recipeJob = SupervisorJob()
+
+        val all = repository.getRandomRecipes(6, forceLoad)
+        val vegan = repository.getRandomRecipes(12, forceLoad, "vegan")
+        val drink = repository.getRandomRecipes(12, forceLoad, "drink")
+        val dessert = repository.getRandomRecipes(12, forceLoad, "dessert")
+        val salad = repository.getRandomRecipes(12, forceLoad, "salad")
+        val soup = repository.getRandomRecipes(12, forceLoad, "soup")
+
+        viewModelScope.launch(recipeJob!!) {
+            launch {
+                all.collect {
+                    _randomRecipes.postValue(it)
+                }
+            }
+            launch {
+                vegan.collect {
+                    _randomVeganRecipes.postValue(it)
+                }
+            }
+            launch {
+                drink.collect {
+                    _randomDrinkRecipes.postValue(it)
+                }
+            }
+            launch {
+                dessert.collect {
+                    _randomDessertRecipes.postValue(it)
+                }
+            }
+            launch {
+                salad.collect {
+                    _randomSaladRecipes.postValue(it)
+                }
+            }
+            launch {
+                soup.collect {
+                    _randomSoupRecipes.postValue(it)
+                }
+            }
         }
-        Log.e("HOME_REPOSITORY", homeRepository.toString())
     }
 
-    fun initRandomVeganRecipe(forceLoad:Boolean){
-        viewModelScope.launch {
-            homeRepository.getRandomVeganRecipes(10, forceLoad)
-        }
-    }
-
-    fun initRandomDrinkRecipe(forceLoad:Boolean){
-        viewModelScope.launch {
-            homeRepository.getRandomDrinkRecipes(10, forceLoad)
-        }
-    }
-
-    fun initRandomDessertRecipe(forceLoad:Boolean){
-        viewModelScope.launch {
-            homeRepository.getRandomDessertRecipes(10, forceLoad)
-        }
-    }
-
-    fun initRandomSaladRecipe(forceLoad:Boolean){
-        viewModelScope.launch {
-            homeRepository.getRandomSaladRecipes(10, forceLoad)
-        }
-    }
-
-    fun initRandomSoupRecipe(forceLoad:Boolean){
-        viewModelScope.launch {
-            homeRepository.getRandomSoupRecipes(10, forceLoad)
-        }
-    }
-
-    fun refreshRecipes(){
-        initRandomRecipe(true)
-        initRandomVeganRecipe(true)
-        initRandomDrinkRecipe(true)
-        initRandomDessertRecipe(true)
-        initRandomSaladRecipe(true)
-        initRandomSoupRecipe(true)
-    }
 }

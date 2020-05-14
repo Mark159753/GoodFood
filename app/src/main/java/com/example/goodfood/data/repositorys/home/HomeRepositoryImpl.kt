@@ -2,14 +2,14 @@ package com.example.goodfood.data.repositorys.home
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.example.goodfood.data.local.dao.RandomRecipeDao
 import com.example.goodfood.data.local.entitys.RecipeEntity
 import com.example.goodfood.data.network.FoodServer
-import com.example.goodfood.untils.LoadState
+import com.example.goodfood.data.repositorys.NetworkBoundResource
+import com.example.goodfood.model.RandomResponse
+import com.example.goodfood.untils.Resource
 import com.example.goodfood.untils.TimeRequestHelper
-import com.example.goodfood.untils.saveRequest
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class HomeRepositoryImpl @Inject constructor(
@@ -18,110 +18,34 @@ class HomeRepositoryImpl @Inject constructor(
     private val context: Context
 ):HomeRepository {
 
-    companion object{
-        private const val RANDOM_RECIPE_REQUEST = "com.example.goodfood.data.repositorys.home.RANDOM_RECIPE_REQUEST"
-        private const val RANDOM_VEGAN_RECIPE_REQUEST = "com.example.goodfood.data.repositorys.home.RANDOM_VEGAN_RECIPE_REQUEST"
-        private const val RANDOM_DRINK_RECIPE_REQUEST = "com.example.goodfood.data.repositorys.home.RANDOM_DRINK_RECIPE_REQUEST"
-        private const val RANDOM_DESSERT_RECIPE_REQUEST = "com.example.goodfood.data.repositorys.home.RANDOM_DESSERT_RECIPE_REQUEST"
-        private const val RANDOM_SALAD_RECIPE_REQUEST = "com.example.goodfood.data.repositorys.home.RANDOM_SALAD_RECIPE_REQUEST"
-        private const val RANDOM_SOUP_RECIPE_REQUEST = "com.example.goodfood.data.repositorys.home.RANDOM_SOUP_RECIPE_REQUEST"
-
-        private const val RANDOM_ALL = "random_all"
-        private const val RANDOM_VEGAN = "random_vegan"
-        private const val RANDOM_DRINK = "random_drink"
-        private const val RANDOM_DESSERT = "random_dessert"
-        private const val RANDOM_SALAD = "random_salad"
-        private const val RANDOM_SOUP = "random_soup"
-    }
-
-    private val _randomRecipes = MutableLiveData<LoadState<List<RecipeEntity>>>()
-    override val randomRecipes:LiveData<LoadState<List<RecipeEntity>>>
-        get() = _randomRecipes
-
-    override suspend fun getRandomRecipes(numbers: Int, forceLoad: Boolean, tags: String?){
-        fetchData(numbers, null, RANDOM_RECIPE_REQUEST, RANDOM_ALL, forceLoad, _randomRecipes)
-    }
-
-    private val _randomVeganRecipes = MutableLiveData<LoadState<List<RecipeEntity>>>()
-    override val randomVeganRecipes:LiveData<LoadState<List<RecipeEntity>>>
-        get() = _randomVeganRecipes
-
-    override suspend fun getRandomVeganRecipes(
+    override fun getRandomRecipes(
         numbers: Int,
-        forceLoad: Boolean
-    ){
-        fetchData(numbers, "vegan", RANDOM_VEGAN_RECIPE_REQUEST, RANDOM_VEGAN, forceLoad, _randomVeganRecipes)
-    }
-
-    private val _randomDrinkRecipes = MutableLiveData<LoadState<List<RecipeEntity>>>()
-    override val randomDrinkRecipes:LiveData<LoadState<List<RecipeEntity>>>
-        get() = _randomDrinkRecipes
-
-    override suspend fun getRandomDrinkRecipes(
-        numbers: Int,
-        forceLoad: Boolean
-    ) {
-        fetchData(numbers, "drink", RANDOM_DRINK_RECIPE_REQUEST, RANDOM_DRINK, forceLoad, _randomDrinkRecipes)
-    }
-
-    private val _randomDessertRecipes = MutableLiveData<LoadState<List<RecipeEntity>>>()
-    override val randomDessertRecipes:LiveData<LoadState<List<RecipeEntity>>>
-        get() = _randomDessertRecipes
-
-    override suspend fun getRandomDessertRecipes(
-        numbers: Int,
-        forceLoad: Boolean
-    ) {
-        fetchData(numbers, "dessert", RANDOM_DESSERT_RECIPE_REQUEST, RANDOM_DESSERT, forceLoad, _randomDessertRecipes)
-    }
-
-    private val _randomSaladRecipes = MutableLiveData<LoadState<List<RecipeEntity>>>()
-    override val randomSaladRecipes:LiveData<LoadState<List<RecipeEntity>>>
-        get() = _randomSaladRecipes
-
-    override suspend fun getRandomSaladRecipes(
-        numbers: Int,
-        forceLoad: Boolean
-    ) {
-        fetchData(numbers, "salad", RANDOM_SALAD_RECIPE_REQUEST, RANDOM_SALAD, forceLoad, _randomSaladRecipes)
-    }
-
-    private val _randomSoupRecipes = MutableLiveData<LoadState<List<RecipeEntity>>>()
-    override val randomSoupRecipes:LiveData<LoadState<List<RecipeEntity>>>
-        get() = _randomSoupRecipes
-
-    override suspend fun getRandomSoupRecipes(
-        numbers: Int,
-        forceLoad: Boolean
-    ) {
-        fetchData(numbers, "soup", RANDOM_SOUP_RECIPE_REQUEST, RANDOM_SOUP, forceLoad, _randomSoupRecipes)
-    }
-
-
-
-    private suspend fun fetchData(numbers: Int, tags:String?, timeKey:String, dataType:String, forceLoad:Boolean, liveData: MutableLiveData<LoadState<List<RecipeEntity>>>) {
-        if (TimeRequestHelper.isUpdateNeeded(timeKey, 1, context) || forceLoad){
-            Log.d("UPDATE NEEDED", "GO")
-            liveData.postValue(LoadState.LOADING)
-            val res = saveRequest { foodServer.getRandom(numbers, tags) }
-            if (res.data != null){
-                val recipes = ArrayList<RecipeEntity>()
-                for (i in res.data.recipes){
-                    val recipe = i.toRecipeEntity()
-                    recipe.typeRequest = dataType
-                    recipes.add(recipe)
+        forceLoad: Boolean,
+        tags: String?
+    ): Flow<Resource<List<RecipeEntity>>> {
+        val dataType = tags ?: "random_all"
+        val timeKey = "${javaClass.`package`?.name}.${dataType}"
+        return object : NetworkBoundResource<RandomResponse, List<RecipeEntity>>(
+            cacheCall = {randomRecipeDao.getRandomRecipesByRequestType(dataType)},
+            apiCall = {foodServer.getRandom(numbers, tags)}
+        ){
+            override suspend fun saveCallResult(item: RandomResponse?) {
+                if (item != null){
+                    randomRecipeDao.clearByRequestType(dataType)
+                    val recipes = ArrayList<RecipeEntity>()
+                    for (i in item.recipes) {
+                        val recipe = i.toRecipeEntity()
+                        recipe.typeRequest = dataType
+                        recipes.add(recipe)
+                    }
+                    randomRecipeDao.insertRandomRecipes(recipes)
+                    TimeRequestHelper.saveCurrentTime(timeKey, context)
                 }
-                randomRecipeDao.clearByRequestType(dataType)
-                randomRecipeDao.insertRandomRecipes(recipes)
-                liveData.postValue(LoadState.LOADED(randomRecipeDao.getRandomRecipesByRequestType(dataType)))
-                TimeRequestHelper.saveCurrentTime(timeKey, context)
-            }else{
-                liveData.postValue(LoadState.ERROR(res.errorMsg!!))
             }
-        }else{
-            Log.d("UPDATE IS NOT NEEDED", "STOP")
-            liveData.postValue(LoadState.LOADING)
-            liveData.postValue(LoadState.LOADED(randomRecipeDao.getRandomRecipesByRequestType(dataType)))
-        }
+
+            override suspend fun shouldFetch(data: List<RecipeEntity>?): Boolean {
+                return data == null || data.isEmpty() || TimeRequestHelper.isUpdateNeeded(timeKey, 1, context) || forceLoad
+            }
+        }.result
     }
 }

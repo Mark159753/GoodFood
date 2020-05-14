@@ -1,4 +1,4 @@
-package com.example.goodfood.untils
+package com.example.goodfood.untils.converters
 
 import androidx.room.TypeConverter
 import com.example.goodfood.model.recipe.ExtendedIngredient

@@ -7,9 +7,9 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.goodfood.data.local.dao.RandomRecipeDao
 import com.example.goodfood.data.local.entitys.RecipeEntity
-import com.example.goodfood.untils.ListAnalyzedInstructionConverter
-import com.example.goodfood.untils.ListExtendedIngredientConverter
-import com.example.goodfood.untils.ListStringConverter
+import com.example.goodfood.untils.converters.ListAnalyzedInstructionConverter
+import com.example.goodfood.untils.converters.ListExtendedIngredientConverter
+import com.example.goodfood.untils.converters.ListStringConverter
 
 @Database(entities = [
     RecipeEntity::class

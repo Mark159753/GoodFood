@@ -22,9 +22,9 @@ import com.example.goodfood.ui.home.adapters.recycler.HomeMainRecyclerAdapter
 import com.example.goodfood.ui.home.adapters.recyclerItemInner.HomeInnerRecyclerAdapter
 import com.example.goodfood.ui.home.adapters.viewPager.CarouselEffectTransformer
 import com.example.goodfood.ui.home.adapters.viewPager.ViewPagerAdapterR
-import com.example.goodfood.untils.LoadState
 import com.example.goodfood.untils.NetworkState
-import javax.inject.Inject
+import com.example.goodfood.untils.Resource
+import com.example.goodfood.untils.Status
 
 
 class HomeFragment(
@@ -56,7 +56,7 @@ class HomeFragment(
 
     private fun initRefresh(){
         binder.homeRefresh.setOnRefreshListener {
-            viewModel.refreshRecipes()
+            viewModel.refreshRecipes(true)
             binder.homeRefresh.isRefreshing = false
         }
     }
@@ -73,53 +73,47 @@ class HomeFragment(
         val nestedAdapters:Array<HomeInnerRecyclerAdapter> = Array(5){ HomeInnerRecyclerAdapter()}
 
         recyclerAdapter.setAdapters(nestedAdapters)
-        viewModel.initRandomVeganRecipe(false)
         viewModel.randomVeganRecipes.observe(viewLifecycleOwner, Observer {
             checkAdapterLoadState(nestedAdapters[0], it)
         })
-        viewModel.initRandomDrinkRecipe(false)
         viewModel.randomDrinkRecipes.observe(viewLifecycleOwner, Observer {
             checkAdapterLoadState(nestedAdapters[1], it)
         })
-        viewModel.initRandomDessertRecipe(false)
         viewModel.randomDessertRecipes.observe(viewLifecycleOwner, Observer {
             checkAdapterLoadState(nestedAdapters[2], it)
         })
-        viewModel.initRandomSaladRecipe(false)
         viewModel.randomSaladRecipes.observe(viewLifecycleOwner, Observer {
             checkAdapterLoadState(nestedAdapters[3], it)
         })
-        viewModel.initRandomSoupRecipe(false)
         viewModel.randomSoupRecipes.observe(viewLifecycleOwner, Observer {
             checkAdapterLoadState(nestedAdapters[4], it)
         })
     }
 
-    private fun checkAdapterLoadState(adapter: HomeInnerRecyclerAdapter, state: LoadState<List<RecipeEntity>>){
-        when (state) {
-            is LoadState.LOADED -> {
+    private fun checkAdapterLoadState(adapter: HomeInnerRecyclerAdapter, state: Resource<List<RecipeEntity>>){
+        when (state.status) {
+            is Status.SUCCESS -> {
                 adapter.setNetworkState(NetworkState.LOADED)
-                adapter.setDataList(state.data)
+                adapter.setDataList(state.data!!)
             }
-            is LoadState.LOADING -> {
+            is Status.LOADING -> {
                 adapter.setNetworkState(NetworkState.LOADING)
             }
-            is LoadState.ERROR -> {
-                adapter.setNetworkState(NetworkState.ERROR(state.msg))
+            is Status.ERROR -> {
+                adapter.setNetworkState(NetworkState.ERROR(state.message ?: "Unknown Error"))
             }
         }
     }
 
     private fun initViewPager() {
         val pagerAdapter = ViewPagerAdapterR(requireContext())
-        viewModel.initRandomRecipe(false)
         viewModel.randomRecipes.observe(viewLifecycleOwner, Observer {
-            when (it) {
-                is LoadState.LOADED -> {
+            when (it.status) {
+                is Status.SUCCESS -> {
                     binder.homeViewpagerLoading.visibility = View.GONE
                     binder.homeViewpagerErrorMsg.visibility = View.GONE
                     binder.homeViewpager.visibility = View.VISIBLE
-                    pagerAdapter.setDataList(it.data)
+                    pagerAdapter.setDataList(it.data!!)
                     binder.homeViewpager.setPageTransformer(true, CarouselEffectTransformer(requireContext()))
 
                     if (binder.homeViewpager.childCount != 0){
@@ -128,15 +122,15 @@ class HomeFragment(
                         binder.homeViewpager.endFakeDrag()
                     }
                 }
-                is LoadState.LOADING -> {
+                is Status.LOADING -> {
                     binder.homeViewpager.visibility = View.GONE
                     binder.homeViewpagerErrorMsg.visibility = View.GONE
                     binder.homeViewpagerLoading.visibility = View.VISIBLE
                 }
-                is LoadState.ERROR -> {
+                is Status.ERROR -> {
                     binder.homeViewpager.visibility = View.GONE
                     binder.homeViewpagerLoading.visibility = View.GONE
-                    binder.homeViewpagerErrorMsg.text = it.msg
+                    binder.homeViewpagerErrorMsg.text = it.message
                     binder.homeViewpagerErrorMsg.visibility = View.VISIBLE
                 }
             }
