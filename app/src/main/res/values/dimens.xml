@@ -10,4 +10,6 @@
 
     <dimen name="horizontal_margin">12dp</dimen>
     <dimen name="search_item_height">100dp</dimen>
+    <dimen name="detail_line_margin_top">12dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>

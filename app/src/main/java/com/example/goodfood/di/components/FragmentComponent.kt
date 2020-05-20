@@ -5,6 +5,7 @@ import com.example.goodfood.di.modules.FragmentFactoryModule
 import com.example.goodfood.di.modules.RepositoryModule
 import com.example.goodfood.di.modules.ViewModelsModule
 import com.example.goodfood.ui.MainActivity
+import com.example.goodfood.ui.details.DetailActivity
 import com.example.goodfood.ui.home.HomeFragment
 import com.example.goodfood.ui.search.SearchFragment
 import dagger.Subcomponent
@@ -20,6 +21,8 @@ import javax.inject.Scope
 interface FragmentComponent {
 
     fun inject(main:MainActivity)
+
+    fun inject(main:DetailActivity)
 
     @Subcomponent.Factory
     interface Factory{

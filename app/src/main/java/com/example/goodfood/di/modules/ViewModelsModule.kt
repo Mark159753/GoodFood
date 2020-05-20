@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.goodfood.di.ViewModelFactoryDI
 import com.example.goodfood.di.ViewModelKey
+import com.example.goodfood.ui.details.DetailsViewModel
 import com.example.goodfood.ui.home.HomeViewModel
 import com.example.goodfood.ui.search.SearchViewModel
 import com.example.goodfood.ui.user.AccountViewModel
@@ -28,6 +29,11 @@ abstract class ViewModelsModule {
     @IntoMap
     @ViewModelKey(AccountViewModel::class)
     abstract fun bindAccountViewModel(model:AccountViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DetailsViewModel::class)
+    abstract fun bindDetailsViewModel(model:DetailsViewModel): ViewModel
 
     @Binds
     abstract fun bindViewModelFactory(factory: ViewModelFactoryDI): ViewModelProvider.Factory

@@ -9,7 +9,17 @@
         android:id="@+id/homeFragment"
         android:name="com.example.goodfood.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailActivity"
+            app:destination="@id/detailActivity" >
+            <argument
+                android:name="recipe"
+                app:argType="com.example.goodfood.data.local.entitys.RecipeEntity"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.goodfood.ui.search.SearchFragment"
@@ -25,4 +35,14 @@
         android:name="com.example.goodfood.ui.user.AccountFragment"
         android:label="fragment_account"
         tools:layout="@layout/fragment_account" />
+    <activity
+        android:id="@+id/detailActivity"
+        android:name="com.example.goodfood.ui.details.DetailActivity"
+        android:label="DetailActivity">
+        <argument
+            android:name="recipe"
+            app:argType="com.example.goodfood.data.local.entitys.RecipeEntity"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </activity>
 </navigation>

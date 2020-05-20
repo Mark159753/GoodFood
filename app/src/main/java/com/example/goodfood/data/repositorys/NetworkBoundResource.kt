@@ -17,16 +17,20 @@ abstract class NetworkBoundResource<NetworkObj, ResultType>(
         emit(Resource.loading(null))
         val cache = cacheCall.invoke()
         if (shouldFetch(cache)){
-            when(val network = saveApiRequest { apiCall.invoke() }){
-                is ApiResponse.ApiSuccessResponse -> {
-                    saveCallResult(network.body)
+            try {
+                when(val network = saveApiRequest { apiCall.invoke() }){
+                    is ApiResponse.ApiSuccessResponse -> {
+                        saveCallResult(network.body)
+                    }
+                    is ApiResponse.ApiEmptyResponse -> {
+                        saveCallResult(null)
+                    }
+                    is ApiResponse.ApiErrorResponse -> {
+                        emit(Resource.error(network.errorMessage, null))
+                    }
                 }
-                is ApiResponse.ApiEmptyResponse -> {
-                    saveCallResult(null)
-                }
-                is ApiResponse.ApiErrorResponse -> {
-                    emit(Resource.error(network.errorMessage, null))
-                }
+            }catch (e:Exception){
+                emit(Resource.error(e.message ?: "Unknown Error", null))
             }
         }
         val result = cacheCall.invoke()

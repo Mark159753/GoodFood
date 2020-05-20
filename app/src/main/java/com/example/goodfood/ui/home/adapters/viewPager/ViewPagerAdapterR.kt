@@ -10,12 +10,19 @@ import android.widget.TextView
 import androidx.viewpager.widget.PagerAdapter
 import com.example.goodfood.R
 import com.example.goodfood.data.local.entitys.RecipeEntity
+import com.example.goodfood.untils.ItemSelectedListener
 import com.squareup.picasso.Picasso
 
 class ViewPagerAdapterR
     (private val context: Context):PagerAdapter() {
 
     private var dataList:List<RecipeEntity> = emptyList()
+
+    private var listener:ItemSelectedListener? = null
+
+    fun setItemSelectedListener(listener:ItemSelectedListener){
+        this.listener = listener
+    }
 
     fun setDataList(list: List<RecipeEntity>){
         this.dataList = list
@@ -44,6 +51,10 @@ class ViewPagerAdapterR
             .placeholder(R.drawable.placeholder)
             .into(img)
         text.text = dataList[position].title
+
+        v.setOnClickListener {
+            listener?.onItemSelected(dataList[position])
+        }
 
         container.addView(v)
         return v

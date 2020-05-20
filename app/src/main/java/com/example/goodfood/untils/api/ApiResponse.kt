@@ -1,32 +1,29 @@
 package com.example.goodfood.untils.api
 
+import android.util.Log
 import retrofit2.Response
 
 sealed class ApiResponse<T> {
     companion object{
 
         fun <T> create(response: Response<T>): ApiResponse<T> {
-            return try {
-                if (response.isSuccessful) {
-                    val body = response.body()
-                    if (body == null || response.code() == 204) {
-                        ApiEmptyResponse()
-                    } else {
-                        ApiSuccessResponse(
-                            body = body
-                        )
-                    }
+            return if (response.isSuccessful) {
+                val body = response.body()
+                if (body == null || response.code() == 204) {
+                    ApiEmptyResponse()
                 } else {
-                    val msg = response.errorBody()?.string()
-                    val errorMsg = if (msg.isNullOrEmpty()) {
-                        response.message()
-                    } else {
-                        msg
-                    }
-                    ApiErrorResponse(errorMsg ?: "unknown error")
+                    ApiSuccessResponse(
+                        body = body
+                    )
                 }
-            }catch (e:Exception){
-                ApiErrorResponse(e.message ?: "unknown error")
+            } else {
+                val msg = response.errorBody()?.string()
+                val errorMsg = if (msg.isNullOrEmpty()) {
+                    response.message()
+                } else {
+                    msg
+                }
+                ApiErrorResponse(errorMsg ?: "unknown error")
             }
         }
     }

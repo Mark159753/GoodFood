@@ -1,13 +1,17 @@
 package com.example.goodfood.data.local.entitys
 
+import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.goodfood.model.recipe.AnalyzedInstruction
 import com.example.goodfood.model.recipe.ExtendedIngredient
 import com.example.goodfood.model.recipe.WinePairing
+import kotlinx.android.parcel.IgnoredOnParcel
+import kotlinx.android.parcel.Parcelize
 
 @Entity(tableName = "recipes")
+@Parcelize
 data class RecipeEntity(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
@@ -47,6 +51,7 @@ data class RecipeEntity(
     val weightWatcherSmartPoints: Int,
     @Embedded(prefix = "wine_pairing_")
     val winePairing: WinePairing?
-){
+):Parcelable{
+    @IgnoredOnParcel
     var typeRequest:String? = null
 }

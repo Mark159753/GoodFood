@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.goodfood.R
 import com.example.goodfood.data.local.entitys.RecipeEntity
+import com.example.goodfood.untils.ItemSelectedListener
 import com.example.goodfood.untils.NetworkState
 import com.squareup.picasso.Picasso
 
@@ -16,7 +17,13 @@ class HomeInnerRecyclerAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var listData:List<RecipeEntity> = emptyList()
 
+    private var listener:ItemSelectedListener? = null
+
     private var networkState: NetworkState? = null
+
+    fun setListener(listener: ItemSelectedListener){
+        this.listener = listener
+    }
 
     fun setNetworkState(newNetworkState: NetworkState?) {
         val previousState = this.networkState
@@ -47,7 +54,7 @@ class HomeInnerRecyclerAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
          return when(viewType){
             R.layout.home_inner_recycler_item ->{
                 val v = LayoutInflater.from(parent.context).inflate(R.layout.home_inner_recycler_item, parent, false)
-                Holder(v)
+                Holder(v, this.listener)
             }
             R.layout.home_inner_item_network_state ->{
                 val v = LayoutInflater.from(parent.context).inflate(R.layout.home_inner_item_network_state, parent, false)
@@ -83,9 +90,14 @@ class HomeInnerRecyclerAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    inner class Holder(view:View):RecyclerView.ViewHolder(view){
+    inner class Holder(view:View, private val listener: ItemSelectedListener?):RecyclerView.ViewHolder(view){
         val img = view.findViewById<ImageView>(R.id.inner_item_img)
         val title = view.findViewById<TextView>(R.id.inner_item_title)
+        init {
+            view.setOnClickListener {
+                listener?.onItemSelected(listData[adapterPosition])
+            }
+        }
     }
 
     inner class NetworkStateHolder(view: View):RecyclerView.ViewHolder(view){

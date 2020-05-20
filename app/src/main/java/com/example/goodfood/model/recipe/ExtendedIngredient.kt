@@ -1,18 +1,21 @@
 package com.example.goodfood.model.recipe
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class ExtendedIngredient(
-    val aisle: String,
+    val aisle: String?,
     val amount: Double,
-    val consistency: String,
+    val consistency: String?,
     val id: Int,
-    val image: String,
-    val measures: Measures,
+    val image: String?,
+    val measures: Measures?,
     val meta: List<String>,
     val metaInformation: List<String>,
-    val name: String,
-    val original: String,
-    val originalName: String,
-    val originalString: String,
-    val unit: String
-)
+    val name: String?,
+    val original: String?,
+    val originalName: String?,
+    val originalString: String?,
+    val unit: String?
+):Parcelable
