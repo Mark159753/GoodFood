@@ -81,28 +81,30 @@ class HomeInnerRecyclerAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             is NetworkStateHolder -> { holder.bind(networkState)}
             is Holder -> {
                 val item = listData[position]
-                holder.title.text = item.title
-                Picasso.get()
-                    .load(item.image)
-                    .placeholder(R.drawable.placeholder)
-                    .into(holder.img)
+                holder.bind(item)
             }
         }
     }
 
-    inner class Holder(view:View, private val listener: ItemSelectedListener?):RecyclerView.ViewHolder(view){
-        val img = view.findViewById<ImageView>(R.id.inner_item_img)
-        val title = view.findViewById<TextView>(R.id.inner_item_title)
-        init {
+    inner class Holder(private val view:View, private val listener: ItemSelectedListener?):RecyclerView.ViewHolder(view){
+        private val img = view.findViewById<ImageView>(R.id.inner_item_img)
+        private val title = view.findViewById<TextView>(R.id.inner_item_title)
+
+        internal fun bind(item:RecipeEntity){
             view.setOnClickListener {
-                listener?.onItemSelected(listData[adapterPosition])
+                listener?.onItemSelected(item)
             }
+            title.text = item.title
+            Picasso.get()
+                .load(item.image)
+                .placeholder(R.drawable.placeholder)
+                .into(img)
         }
     }
 
     inner class NetworkStateHolder(view: View):RecyclerView.ViewHolder(view){
-        val progress = view.findViewById<ProgressBar>(R.id.home_item_load_progress)
-        val msgLoadError = view.findViewById<TextView>(R.id.error_loading_msg)
+        private val progress = view.findViewById<ProgressBar>(R.id.home_item_load_progress)
+        private val msgLoadError = view.findViewById<TextView>(R.id.error_loading_msg)
 
         fun bind(networkState: NetworkState?){
             progress.visibility = toVisibility(networkState is NetworkState.LOADING)

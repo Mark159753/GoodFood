@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "278167233382",
+    "firebase_url": "https://goodfood-8bb74.firebaseio.com",
+    "project_id": "goodfood-8bb74",
+    "storage_bucket": "goodfood-8bb74.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278167233382:android:afeda53372d5a853fb9ea7",
+        "android_client_info": {
+          "package_name": "com.example.goodfood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "278167233382-rsv5m7124fp27gjp51do5gduva1m7bcn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.goodfood",
+            "certificate_hash": "af82ff91bc25214f6d277acc947d99a203576898"
+          }
+        },
+        {
+          "client_id": "278167233382-euogbt2q1nap3vbpqhkr77769nflrc38.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNJz4ZVeKMevWI2HWYy33hJo6uaNN6iZw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "278167233382-euogbt2q1nap3vbpqhkr77769nflrc38.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.login.CreateAccountFragment">
+
+    <ImageView
+        android:id="@+id/start_img"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/third_frsgment"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
+
+    <TextView
+        android:id="@+id/login_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login_register_slogan"
+        app:layout_constraintTop_toBottomOf="@id/start_img"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="@font/roboto_italic"
+        android:layout_marginTop="8dp"
+        android:textSize="32sp"
+        android:layout_marginLeft="@dimen/register_offset"
+        android:layout_marginRight="@dimen/register_offset"/>
+
+    <EditText
+        android:id="@+id/create_email_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:inputType="textEmailAddress"
+        app:layout_constraintTop_toBottomOf="@id/login_logo"
+        android:layout_marginRight="@dimen/register_offset"
+        android:layout_marginLeft="@dimen/register_offset"
+        android:hint="@string/your_email_hint"/>
+
+    <EditText
+        android:id="@+id/create_password_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:inputType="textPassword"
+        app:layout_constraintTop_toBottomOf="@id/create_email_input"
+        android:layout_marginRight="@dimen/register_offset"
+        android:layout_marginLeft="@dimen/register_offset"
+        android:hint="@string/password_hint"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_account_btn"
+        style="@style/RoundedBtnShape"
+        android:layout_marginTop="16dp"
+        android:paddingHorizontal="36dp"
+        android:paddingVertical="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/create_password_input" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/terms_of_use"
+        app:layout_constraintTop_toBottomOf="@id/button_create"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="12dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

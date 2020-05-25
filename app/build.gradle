@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: "androidx.navigation.safeargs.kotlin"
 
+apply plugin: 'com.google.gms.google-services'
+
 def apikeyPropertiesFile = rootProject.file("secret.properties")
 def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
@@ -121,5 +123,14 @@ dependencies {
 
     // Blur
     implementation 'jp.wasabeef:blurry:3.0.0'
+
+    // material dialogs
+    def matieral_dialogs_version = "3.1.0"
+    implementation "com.afollestad.material-dialogs:core:$matieral_dialogs_version"
+
+    // FireBase
+    implementation 'com.google.firebase:firebase-analytics:17.4.2'
+
+    implementation 'com.google.firebase:firebase-auth-ktx:19.3.1'
 
 }

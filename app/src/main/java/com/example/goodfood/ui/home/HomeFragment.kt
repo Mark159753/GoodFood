@@ -1,7 +1,7 @@
 package com.example.goodfood.ui.home
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +15,7 @@ import com.example.goodfood.R
 import com.example.goodfood.data.local.entitys.RecipeEntity
 import com.example.goodfood.databinding.FragmentHomeBinding
 import com.example.goodfood.di.ViewModelFactoryDI
+import com.example.goodfood.ui.base.BaseFragment
 import com.example.goodfood.ui.home.adapters.MarginItemDecorator
 import com.example.goodfood.ui.home.adapters.recycler.HomeMainRecyclerAdapter
 import com.example.goodfood.ui.home.adapters.recyclerItemInner.HomeInnerRecyclerAdapter
@@ -28,11 +29,12 @@ import com.example.goodfood.untils.Status
 
 class HomeFragment(
     private val viewModelFactory: ViewModelFactoryDI
-) : Fragment(), ItemSelectedListener {
+) : BaseFragment(), ItemSelectedListener {
 
     private lateinit var binder:FragmentHomeBinding
 
     private lateinit var viewModel: HomeViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -134,6 +136,7 @@ class HomeFragment(
                     binder.homeViewpagerLoading.visibility = View.GONE
                     binder.homeViewpagerErrorMsg.text = it.message
                     binder.homeViewpagerErrorMsg.visibility = View.VISIBLE
+                    uiCommunication.showErrorDialog(it.message ?: "Something was Broken")
                 }
             }
         })

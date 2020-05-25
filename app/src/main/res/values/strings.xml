@@ -37,4 +37,23 @@
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="detail_health_score">Health Score</string>
+
+    <string name="error_dialog_title">Ups Something Goes Wrong</string>
+    <string name="text_ok">OK</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="deliciously_simple">Deliciously Simple</string>
+    <string name="start_cooking">Start Cooking</string>
+    <string name="login_second_subtitle">Nutritionally balanced, easy to cook recipes. Quality fresh local ingredients.</string>
+    <string name="create_account">Create Account</string>
+    <string name="login_text">Already have account? Log in</string>
+    <string name="login_register_slogan">Let\'s start making good meals</string>
+    <string name="your_email_hint">Your Email</string>
+    <string name="password_hint">Password</string>
+    <string name="create_account_btn">Create Account</string>
+    <string name="terms_of_use">Text of use and Privacy Policy</string>
+    <string name="welcome_title">Welcome Back to Good Food</string>
+    <string name="log_in_btn">Log in</string>
+
+    <string name="sign_in_error">Can\'t sign in into account. Try again</string>
+    <string name="create_account_error">Can\'t create account. Try again</string>
 </resources>

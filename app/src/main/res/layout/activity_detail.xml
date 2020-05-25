@@ -89,7 +89,7 @@
                         android:theme="@style/Button.White"
                         android:textColor="@android:color/black"
                         android:textAllCaps="false"
-                        android:background="@drawable/btn_shape"/>
+                        android:background="@drawable/rounded_shape"/>
                     <View
                         android:id="@+id/cross_line"
                         android:layout_width="match_parent"

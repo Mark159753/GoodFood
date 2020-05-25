@@ -3,16 +3,7 @@ package com.example.goodfood.ui.details
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.renderscript.Allocation
-import android.renderscript.Element
-import android.renderscript.RenderScript
-import android.renderscript.ScriptIntrinsicBlur
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.doOnAttach
-import androidx.core.view.doOnLayout
-import androidx.core.view.doOnPreDraw
-import androidx.core.view.drawToBitmap
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.navArgs
@@ -22,6 +13,7 @@ import com.example.goodfood.databinding.ActivityDetailBinding
 import com.example.goodfood.di.ViewModelFactoryDI
 import com.example.goodfood.model.recipe.ExtendedIngredient
 import com.example.goodfood.model.recipe.Step
+import com.example.goodfood.ui.base.BaseActivity
 import com.example.goodfood.ui.details.adpter.VpAdapter
 import com.google.android.material.appbar.AppBarLayout
 import com.squareup.picasso.Picasso
@@ -31,7 +23,7 @@ import java.lang.Exception
 import javax.inject.Inject
 
 
-class DetailActivity : AppCompatActivity() {
+class DetailActivity : BaseActivity() {
 
     private val args:DetailActivityArgs by navArgs()
 
