@@ -8,25 +8,27 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.goodfood.GoodFoodApp
 
 import com.example.goodfood.R
+import com.example.goodfood.data.local.entitys.RecipeEntity
 import com.example.goodfood.databinding.FragmentSearchBinding
 import com.example.goodfood.di.ViewModelFactoryDI
-import com.example.goodfood.ui.MainActivity
+import com.example.goodfood.ui.details.DetailActivity
 import com.example.goodfood.ui.home.adapters.MarginItemDecorator
 import com.example.goodfood.ui.search.adapter.SearchAdapter
-import javax.inject.Inject
+import com.example.goodfood.ui.search.adapter.SearchItemSelected
 
 
 class SearchFragment(
     private val viewModelFactory: ViewModelFactoryDI
-) : Fragment() {
+) : Fragment(), SearchItemSelected {
 
     private lateinit var binder:FragmentSearchBinding
 
@@ -79,6 +81,7 @@ class SearchFragment(
 
     private fun initSearchList(){
         mAdapter = SearchAdapter()
+        mAdapter.setListener(this)
         mAdapter.registerAdapterDataObserver(adapterDataObserver)
         binder.searchList.apply {
             adapter = mAdapter
@@ -86,6 +89,11 @@ class SearchFragment(
             setHasFixedSize(true)
             addItemDecoration(MarginItemDecorator(resources.getDimension(R.dimen.home_inner_item_padding).toInt(), 0))
         }
+    }
+
+    override fun onSearchItemSelected(id: Int) {
+        val action = SearchFragmentDirections.actionSearchFragmentToDetailActivity(id)
+        findNavController().navigate(action)
     }
 
     private fun updateSearchList(q:String){

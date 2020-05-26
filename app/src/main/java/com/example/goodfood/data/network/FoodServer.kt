@@ -2,6 +2,7 @@ package com.example.goodfood.data.network
 
 import com.example.goodfood.BuildConfig
 import com.example.goodfood.model.RandomResponse
+import com.example.goodfood.model.recipe.RecipeResponse
 import com.example.goodfood.model.search.SearchResponse
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -11,6 +12,7 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 private const val BASE_URL = "https://api.spoonacular.com/"
@@ -30,6 +32,11 @@ interface FoodServer {
         @Query("number") number:Int,
         @Query("tags") tags:String? = null     // can be diets, meal types, cuisines, or intolerances
     ): retrofit2.Response<RandomResponse>
+
+    @GET("recipes/{id}/information")
+    suspend fun getRecipeById(
+        @Path ("id") id:Int
+    ):retrofit2.Response<RecipeResponse>
 
     companion object{
         operator fun invoke():FoodServer{

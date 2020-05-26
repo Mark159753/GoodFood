@@ -18,6 +18,11 @@ import com.squareup.picasso.Picasso
 class SearchAdapter:PagedListAdapter<Result, RecyclerView.ViewHolder>(COMPARATOR) {
 
     private var networkState: NetworkState? = null
+    private var listener:SearchItemSelected? = null
+
+    fun setListener(listener: SearchItemSelected){
+        this.listener = listener
+    }
 
     fun setNetworkState(newNetworkState: NetworkState?) {
         val previousState = this.networkState
@@ -59,20 +64,23 @@ class SearchAdapter:PagedListAdapter<Result, RecyclerView.ViewHolder>(COMPARATOR
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(getItemViewType(position)){
-            R.layout.search_item -> (holder as SearchViewHolder).bind(getItem(position))
+            R.layout.search_item -> (holder as SearchViewHolder).bind(getItem(position), listener)
             R.layout.search_item_network_state -> (holder as SearchNetworkStateViewHolder).bind(networkState)
         }
     }
 
 
-    class SearchViewHolder(view:View):RecyclerView.ViewHolder(view){
+    class SearchViewHolder(private val view:View):RecyclerView.ViewHolder(view){
 
         private val title:TextView = view.findViewById(R.id.search_item_title)
         private val sourceName:TextView = view.findViewById(R.id.search_item_source_name)
         private val rating:RatingBar = view.findViewById(R.id.search_item_aggregateLikes)
         private val img:ImageView = view.findViewById(R.id.search_item_img)
 
-        fun bind(data:Result?){
+        fun bind(data:Result?, listener: SearchItemSelected?){
+            view.setOnClickListener {
+                listener?.onSearchItemSelected(data!!.id)
+            }
             title.text = data?.title
             Picasso.get()
                 .load("https://spoonacular.com/recipeImages/${data?.image}")

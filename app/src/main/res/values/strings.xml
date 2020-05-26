@@ -56,4 +56,7 @@
 
     <string name="sign_in_error">Can\'t sign in into account. Try again</string>
     <string name="create_account_error">Can\'t create account. Try again</string>
+    <string name="bad_request">Bad Request</string>
+    <string name="empty_result">Empty Result</string>
+    <string name="we_got_a_problem">Houston we have a problem</string>
 </resources>

@@ -1,6 +1,5 @@
 package com.example.goodfood.fragments
 
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
 import com.example.goodfood.di.ViewModelFactoryDI
 import com.example.goodfood.di.components.FragmentScope

@@ -24,7 +24,16 @@
         android:id="@+id/searchFragment"
         android:name="com.example.goodfood.ui.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_detailActivity"
+            app:destination="@id/detailActivity" >
+            <argument
+                android:name="recipe_id"
+                app:argType="integer"
+                android:defaultValue="-1" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/bookmarkFragment"
         android:name="com.example.goodfood.ui.bookmark.BookmarkFragment"
@@ -44,5 +53,10 @@
             app:argType="com.example.goodfood.data.local.entitys.RecipeEntity"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="recipe_id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+
     </activity>
 </navigation>
