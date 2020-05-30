@@ -21,8 +21,6 @@ import com.google.firebase.ktx.Firebase
 
 class LoginFragment : BaseFragment() {
 
-    private lateinit var auth: FirebaseAuth
-
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var logInAccountBtn: MaterialButton
@@ -44,32 +42,12 @@ class LoginFragment : BaseFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        auth = Firebase.auth
-
         logInAccountBtn.setOnClickListener {
             if (isInvalidForm())
-                signIn(emailInput.text.toString(), passwordInput.text.toString())
+                (activity as LoginActivity).signIn(emailInput.text.toString(), passwordInput.text.toString())
         }
     }
 
-    private fun signIn(email:String, password:String){
-        val loginActivity = activity as LoginActivity
-        loginActivity.showHideProgressBar(true)
-        auth.signInWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful){
-                    Log.d("LogIn", "SUCCESS")
-                    loginActivity.showHideProgressBar(false)
-                    val intent = Intent(activity, MainActivity::class.java)
-                    startActivity(intent)
-                    activity?.finish()
-                }else{
-                    Log.e("LogIn", "ERROR", task.exception)
-                    loginActivity.showHideProgressBar(false)
-                    uiCommunication.showErrorDialog(resources.getString(R.string.sign_in_error))
-                }
-            }
-    }
 
     private fun isInvalidForm():Boolean{
         if (TextUtils.isEmpty(emailInput.text))

@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Length(
-    val number: Int,
-    val unit: String
+    val number: Int = 0,
+    val unit: String = ""
 ):Parcelable

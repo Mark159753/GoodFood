@@ -6,9 +6,9 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Step(
-    val equipment: List<Equipment>,
-    val ingredients: List<Ingredient>,
-    val length: Length?,
-    val number: Int?,
-    val step: String?
+    val equipment: List<Equipment> = emptyList(),
+    val ingredients: List<Ingredient> = emptyList(),
+    val length: Length? = null,
+    val number: Int? = null,
+    val step: String? = null
 ):Parcelable

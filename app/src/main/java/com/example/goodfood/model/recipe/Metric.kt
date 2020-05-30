@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Metric(
-    val amount: Double,
-    val unitLong: String,
-    val unitShort: String
+    val amount: Double = 0.0,
+    val unitLong: String = "",
+    val unitShort: String = ""
 ):Parcelable

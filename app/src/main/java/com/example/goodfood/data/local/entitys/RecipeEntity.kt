@@ -3,6 +3,7 @@ package com.example.goodfood.data.local.entitys
 import android.os.Parcelable
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.example.goodfood.model.recipe.AnalyzedInstruction
 import com.example.goodfood.model.recipe.ExtendedIngredient
@@ -14,43 +15,43 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class RecipeEntity(
     @PrimaryKey(autoGenerate = false)
-    val id: Int,
-    val aggregateLikes: Int,
-    val analyzedInstructions: List<AnalyzedInstruction>?,
-    val cheap: Boolean,
-    val creditsText: String?,
-    val cuisines: List<String>?,
-    val dairyFree: Boolean,
-    val diets: List<String>?,
-    val dishTypes: List<String>?,
-    val extendedIngredients: List<ExtendedIngredient>?,
-    val gaps: String?,
-    val glutenFree: Boolean,
-    val healthScore: Double?,
-    val image: String?,
-    val imageType: String?,
-    val instructions: String?,
-    val license: String?,
-    val lowFodmap: Boolean,
-    val occasions: List<String>?,
-    val originalId: Int,
-    val pricePerServing: Double,
-    val readyInMinutes: Int,
-    val servings: Int,
-    val sourceName: String?,
-    val sourceUrl: String?,
-    val spoonacularScore: Double?,
-    val spoonacularSourceUrl: String?,
-    val summary: String?,
-    val sustainable: Boolean,
-    val title: String?,
-    val vegan: Boolean,
-    val vegetarian: Boolean,
-    val veryHealthy: Boolean,
-    val veryPopular: Boolean,
-    val weightWatcherSmartPoints: Int,
+    val id: Int = 0,
+    val aggregateLikes: Int = 0,
+    val analyzedInstructions: List<AnalyzedInstruction>? = null,
+    val cheap: Boolean = false,
+    val creditsText: String? = null,
+    val cuisines: List<String>? = null,
+    val dairyFree: Boolean = false,
+    val diets: List<String>? = null,
+    val dishTypes: List<String>? = null,
+    val extendedIngredients: List<ExtendedIngredient>? = null,
+    val gaps: String? = null,
+    val glutenFree: Boolean = false,
+    val healthScore: Double? = null,
+    val image: String? = null,
+    val imageType: String? = null,
+    val instructions: String? = null,
+    val license: String? = null,
+    val lowFodmap: Boolean = false,
+    val occasions: List<String>? = null,
+    val originalId: Int = 0,
+    val pricePerServing: Double = 0.0,
+    val readyInMinutes: Int = 0,
+    val servings: Int = 0,
+    val sourceName: String? = null,
+    val sourceUrl: String? = null,
+    val spoonacularScore: Double? = null,
+    val spoonacularSourceUrl: String? = null,
+    val summary: String? = null,
+    val sustainable: Boolean = false,
+    val title: String? = null,
+    val vegan: Boolean = false,
+    val vegetarian: Boolean = false,
+    val veryHealthy: Boolean = false,
+    val veryPopular: Boolean = false,
+    val weightWatcherSmartPoints: Int = 0,
     @Embedded(prefix = "wine_pairing_")
-    val winePairing: WinePairing?
+    val winePairing: WinePairing? = null
 ):Parcelable{
     @IgnoredOnParcel
     var typeRequest:String? = null

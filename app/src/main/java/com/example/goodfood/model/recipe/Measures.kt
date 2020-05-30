@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Measures(
-    val metric: Metric,
-    val us: Us
+    val metric: Metric = Metric(),
+    val us: Us = Us()
 ):Parcelable

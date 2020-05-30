@@ -7,7 +7,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Ingredient(
-    val id: Int,
-    val image: String,
-    val name: String
+    val id: Int = 0,
+    val image: String = "",
+    val name: String = ""
 ):Parcelable

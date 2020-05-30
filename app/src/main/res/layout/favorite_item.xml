@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="8dp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/favorite_img"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:scaleType="centerCrop"
+        android:layout_alignParentStart="true"
+        android:background="@color/searchGreyColor"/>
+
+    <TextView
+        android:id="@+id/favorite_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Some Cool Recipe Title"
+        android:layout_toEndOf="@id/favorite_img"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:layout_marginStart="8dp"/>
+
+    <TextView
+        android:id="@+id/favorite_source_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/favorite_title"
+        tools:text="Create by Mark"
+        android:layout_toEndOf="@id/favorite_img"
+        android:layout_marginStart="8dp"/>
+</RelativeLayout>

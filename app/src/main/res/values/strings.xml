@@ -59,4 +59,12 @@
     <string name="bad_request">Bad Request</string>
     <string name="empty_result">Empty Result</string>
     <string name="we_got_a_problem">Houston we have a problem</string>
+    <string name="cookBook">My CookBook</string>
+    <string name="nothing_empty">NOTHING!!</string>
+    <string name="empty_message">Your collection list is empty.</string>
+
+    <string name="remove_from_fav">Remove from fav</string>
+
+    <string name="recipe_added_msg">Recipe was Added</string>
+    <string name="recipe_removed_msg">Recipe was Removed</string>
 </resources>

@@ -5,6 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class AnalyzedInstruction(
-    val name: String,
-    val steps: List<Step>
+    val name: String = "",
+    val steps: List<Step> = emptyList()
 ):Parcelable

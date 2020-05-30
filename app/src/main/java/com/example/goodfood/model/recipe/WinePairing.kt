@@ -6,6 +6,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class WinePairing(
-    val pairedWines: List<String>?,
-    val pairingText: String?
+    val pairedWines: List<String>? = null,
+    val pairingText: String? = null
 ):Parcelable

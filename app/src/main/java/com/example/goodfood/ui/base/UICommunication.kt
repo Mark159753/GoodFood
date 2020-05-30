@@ -6,4 +6,5 @@ interface UICommunication {
 
     fun makeToast(msg: String)
 
+    fun singOut()
 }
