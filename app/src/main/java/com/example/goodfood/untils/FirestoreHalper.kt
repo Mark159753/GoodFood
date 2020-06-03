@@ -55,24 +55,5 @@ class FirestoreHelper(private val auth: FirebaseAuth) {
             }
     }
 
-    fun getFavoriteQuery(): Query {
-        return db.collection(auth.uid!!)
-    }
-
-    fun getRecipesFromFavorite(callback: (recipes:List<RecipeEntity>?) -> Unit){
-        db.collection(auth.uid!!)
-            .get()
-            .addOnSuccessListener { result ->
-                val recipes = ArrayList<RecipeEntity>()
-                for (document in result) {
-                    recipes.add(document.toObject())
-                }
-                callback(recipes)
-            }
-            .addOnFailureListener { exception ->
-                Log.e("FAVORITE", "Error getting documents.", exception)
-                callback(null)
-            }
-    }
 
 }

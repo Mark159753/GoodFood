@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="pref_ui_mode_labels">
+        <item>Light</item>
+        <item>Dark</item>
+        <item>Low Battery</item>
+        <item>Default</item>
+    </array>
+
+    <array name="pref_ui_mode_values">
+        <item>light_mode</item>
+        <item>dark_mode</item>
+        <item>low_battery_mode</item>
+        <item>default_mode</item>
+    </array>
+</resources>

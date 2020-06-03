@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:key="ui_settings"
+        android:title="@string/pref_ui_category">
+        <ListPreference
+            android:key="them_options"
+            android:title="@string/pref_them_mode"
+            android:defaultValue="default_mode"
+            android:entries="@array/pref_ui_mode_labels"
+            android:entryValues="@array/pref_ui_mode_values"/>
+        <ListPreference
+            android:key="ui_language"
+            android:title="@string/language"
+            android:defaultValue="en-US"
+            android:entries="@array/pref_ui_language_labels"
+            android:entryValues="@array/pref_ui_language_values"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="account_state"
+        android:title="@string/account">
+        <Preference
+            android:key="account_sign_out"
+            android:title="@string/sign_out_pref"/>
+    </PreferenceCategory>
+</PreferenceScreen>

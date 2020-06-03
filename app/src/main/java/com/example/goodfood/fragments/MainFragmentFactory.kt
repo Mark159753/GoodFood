@@ -6,7 +6,7 @@ import com.example.goodfood.di.components.FragmentScope
 import com.example.goodfood.ui.bookmark.BookmarkFragment
 import com.example.goodfood.ui.home.HomeFragment
 import com.example.goodfood.ui.search.SearchFragment
-import com.example.goodfood.ui.user.AccountFragment
+import com.example.goodfood.ui.settings.SettingsFragment
 import com.example.goodfood.untils.FirestoreHelper
 import javax.inject.Inject
 
@@ -21,7 +21,7 @@ class MainFragmentFactory @Inject constructor(
             HomeFragment::class.java.name -> HomeFragment(viewModelFactory)
             SearchFragment::class.java.name -> SearchFragment(viewModelFactory)
             BookmarkFragment::class.java.name -> BookmarkFragment(firestoreHelper)
-            AccountFragment::class.java.name -> AccountFragment(viewModelFactory)
+            SettingsFragment::class.java.name -> SettingsFragment()
             else -> HomeFragment(viewModelFactory)
     }
 }

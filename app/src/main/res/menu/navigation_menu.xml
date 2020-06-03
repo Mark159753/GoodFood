@@ -14,6 +14,6 @@
         android:icon="@drawable/ic_bookmark_black_24dp"/>
     <item
         android:id="@+id/accountFragment"
-        android:title="@string/account_menu"
-        android:icon="@drawable/person"/>
+        android:title="@string/settings_menu"
+        android:icon="@drawable/ic_settings_black_24dp"/>
 </menu>

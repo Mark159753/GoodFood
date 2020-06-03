@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RelativeLayout
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,10 +18,11 @@ import com.example.goodfood.data.local.entitys.RecipeEntity
 import com.example.goodfood.di.ViewModelFactoryDI
 import com.example.goodfood.ui.base.BaseFragment
 import com.example.goodfood.untils.FirestoreHelper
+import com.example.goodfood.untils.ItemSelectedListener
 
 class BookmarkFragment(
     private val firestoreHelper: FirestoreHelper
-) : BaseFragment() {
+) : BaseFragment(), ItemSelectedListener {
 
     private lateinit var bookmarkList:RecyclerView
     private lateinit var emptyScreen:RelativeLayout
@@ -43,6 +45,7 @@ class BookmarkFragment(
         super.onActivityCreated(savedInstanceState)
         val mAdapter = FavoriteAdapter(viewLifecycleOwner, firestoreHelper)
         mAdapter.setEmptyListener(this::showEmptyScreen)
+        mAdapter.setItemClickListener(this)
 
         bookmarkList.apply {
             adapter = mAdapter
@@ -52,6 +55,11 @@ class BookmarkFragment(
         }
         val itemTouchHelper = ItemTouchHelper(SwipeToDeleteCallback(mAdapter))
         itemTouchHelper.attachToRecyclerView(bookmarkList)
+    }
+
+    override fun onItemSelected(data: RecipeEntity) {
+        val action = BookmarkFragmentDirections.actionBookmarkFragmentToDetailActivity(data)
+        findNavController().navigate(action)
     }
 
     private fun showEmptyScreen(isEmpty:Boolean){

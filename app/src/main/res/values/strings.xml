@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">GoodFood</string>
+    <string name="app_name" translatable="false">GoodFood</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="home_menu">Home</string>
     <string name="search_menu">Search</string>
     <string name="bookmark_menu">Bookmark</string>
@@ -15,7 +15,7 @@
     <string name="home_category_salad">Salad</string>
     <string name="home_category_soup">Soup</string>
 
-    <string name="name_app">Good Food</string>
+    <string name="name_app" translatable="false">Good Food</string>
     <string name="search_title">Search</string>
     <string name="search_hint">Search</string>
     <string name="add_to_fav_btn">Add to fav</string>
@@ -24,23 +24,23 @@
     <string name="details_cook_time">Cook Time</string>
     <string name="details_description">Description</string>
 
-    <string name="small_lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
+    <string name="small_lorem" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</string>
     <string name="details_ingredients">Ingredients</string>
     <string name="details_directions">Directions</string>
-    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_detail" translatable="false">DetailActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
     <string name="detail_health_score">Health Score</string>
 
     <string name="error_dialog_title">Ups Something Goes Wrong</string>
-    <string name="text_ok">OK</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="text_ok" translatable="false">OK</string>
+    <string name="title_activity_login" translatable="false">LoginActivity</string>
     <string name="deliciously_simple">Deliciously Simple</string>
     <string name="start_cooking">Start Cooking</string>
     <string name="login_second_subtitle">Nutritionally balanced, easy to cook recipes. Quality fresh local ingredients.</string>
@@ -67,4 +67,10 @@
 
     <string name="recipe_added_msg">Recipe was Added</string>
     <string name="recipe_removed_msg">Recipe was Removed</string>
+    <string name="pref_them_mode">Select Night or Day mode</string>
+    <string name="pref_ui_category">User Interface</string>
+    <string name="account">Account</string>
+    <string name="language">Language</string>
+    <string name="settings_menu">Settings</string>
+    <string name="sign_out_pref">Sign Out</string>
 </resources>

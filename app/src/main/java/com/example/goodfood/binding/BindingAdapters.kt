@@ -1,7 +1,5 @@
 package com.example.goodfood.binding
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.text.Html
 import android.text.Spannable
 import android.text.TextPaint

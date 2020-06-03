@@ -11,12 +11,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.goodfood.R
 import com.example.goodfood.data.local.entitys.RecipeEntity
 import com.example.goodfood.untils.FirestoreHelper
+import com.example.goodfood.untils.ItemSelectedListener
 import com.google.firebase.firestore.*
 
 class FavoriteAdapter(private val lifecycleOwner: LifecycleOwner, private val firestoreHelper: FirestoreHelper)
     : RecyclerView.Adapter<FavoriteBookmarkHolder>(), EventListener<QuerySnapshot>, LifecycleObserver {
 
     private val listData = ArrayList<RecipeEntity>()
+    private var listener:ItemSelectedListener? = null
 
     private var emptyListener: ((Boolean) -> Unit)? = null
 
@@ -27,6 +29,10 @@ class FavoriteAdapter(private val lifecycleOwner: LifecycleOwner, private val fi
 
     fun setEmptyListener(listener: (isEmpty:Boolean) -> Unit){
         this.emptyListener = listener
+    }
+
+    fun setItemClickListener(listener: ItemSelectedListener){
+        this.listener = listener
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
@@ -80,7 +86,7 @@ class FavoriteAdapter(private val lifecycleOwner: LifecycleOwner, private val fi
 
     override fun onBindViewHolder(holder: FavoriteBookmarkHolder, position: Int) {
         val item = listData[position]
-        holder.bind(item)
+        holder.bind(item, listener)
     }
 
 }

@@ -1,24 +1,20 @@
 package com.example.goodfood.ui.base
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.PreferenceManager
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.example.goodfood.R
-import com.example.goodfood.data.local.entitys.RecipeEntity
 import com.example.goodfood.ui.login.LoginActivity
+import com.example.goodfood.untils.LocaleHelper
+import com.example.goodfood.untils.ThemeHelper
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.Source
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 
 abstract class BaseActivity: AppCompatActivity(), UICommunication {
@@ -27,9 +23,16 @@ abstract class BaseActivity: AppCompatActivity(), UICommunication {
 
     protected lateinit var auth: FirebaseAuth
 
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(LocaleHelper.onAttach(newBase!!, LocaleHelper.getLanguage(newBase)))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
+
+        val theme = PreferenceManager.getDefaultSharedPreferences(this).getString("them_options", "NULL")
+        ThemeHelper.applyTheme(theme!!)
     }
 
 

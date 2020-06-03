@@ -133,25 +133,29 @@ class DetailActivity : BaseActivity(), EventListener<QuerySnapshot> {
         }
     }
 
+    private var isInitEvent:Boolean = false
+
     override fun onEvent(snapShot: QuerySnapshot?, e: FirebaseFirestoreException?) {
         if (e != null){
             Log.e("FavoriteAdapter", e.message ?: "UnknownError")
             return
         }
-        if (snapShot!!.documentChanges.size > 1)
-            return
-        when(snapShot.documentChanges[0].type){
-            DocumentChange.Type.ADDED -> {
-                binder.detailAddToFavBtn.text = resources.getText(R.string.remove_from_fav)
-                isFav = true
-                makeToast(resources.getString(R.string.recipe_added_msg))
-            }
-            DocumentChange.Type.REMOVED -> {
-                binder.detailAddToFavBtn.text = resources.getText(R.string.add_to_fav_btn)
-                isFav = false
-                makeToast(resources.getString(R.string.recipe_removed_msg))
+        if (isInitEvent){
+            when (snapShot!!.documentChanges[0].type) {
+                DocumentChange.Type.ADDED -> {
+                    binder.detailAddToFavBtn.text = resources.getText(R.string.remove_from_fav)
+                    isFav = true
+                    makeToast(resources.getString(R.string.recipe_added_msg))
+                }
+                DocumentChange.Type.REMOVED -> {
+                    binder.detailAddToFavBtn.text = resources.getText(R.string.add_to_fav_btn)
+                    isFav = false
+                    makeToast(resources.getString(R.string.recipe_removed_msg))
+                }
             }
         }
+        // Bad solution using flag, need to find better
+        isInitEvent = true
     }
 
     private fun subscribeOnLoading(){
