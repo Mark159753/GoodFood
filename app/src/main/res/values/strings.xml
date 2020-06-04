@@ -73,4 +73,5 @@
     <string name="language">Language</string>
     <string name="settings_menu">Settings</string>
     <string name="sign_out_pref">Sign Out</string>
+    <string name="transition_key">transition</string>
 </resources>

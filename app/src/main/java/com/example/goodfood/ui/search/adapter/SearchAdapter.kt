@@ -79,7 +79,7 @@ class SearchAdapter:PagedListAdapter<Result, RecyclerView.ViewHolder>(COMPARATOR
 
         fun bind(data:Result?, listener: SearchItemSelected?){
             view.setOnClickListener {
-                listener?.onSearchItemSelected(data!!.id)
+                listener?.onSearchItemSelected(data!!.id, it)
             }
             title.text = data?.title
             Picasso.get()

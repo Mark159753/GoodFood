@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RelativeLayout
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
+import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -57,9 +60,14 @@ class BookmarkFragment(
         itemTouchHelper.attachToRecyclerView(bookmarkList)
     }
 
-    override fun onItemSelected(data: RecipeEntity) {
+    override fun onItemSelected(data: RecipeEntity, sharedView:View?) {
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(),
+            Pair.create(sharedView!!, "${requireContext().getString(R.string.transition_key)}_${data.id}")
+        )
+        val extras = ActivityNavigatorExtras(options)
+
         val action = BookmarkFragmentDirections.actionBookmarkFragmentToDetailActivity(data)
-        findNavController().navigate(action)
+        findNavController().navigate(action, extras)
     }
 
     private fun showEmptyScreen(isEmpty:Boolean){

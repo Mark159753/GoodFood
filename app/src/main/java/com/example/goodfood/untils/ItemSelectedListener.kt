@@ -5,5 +5,5 @@ import com.example.goodfood.data.local.entitys.RecipeEntity
 
 interface ItemSelectedListener {
 
-    fun onItemSelected(data:RecipeEntity)
+    fun onItemSelected(data:RecipeEntity,view:View? = null)
 }

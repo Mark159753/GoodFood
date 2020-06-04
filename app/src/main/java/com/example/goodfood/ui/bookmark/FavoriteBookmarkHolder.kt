@@ -22,7 +22,7 @@ class FavoriteBookmarkHolder(private val view:View):RecyclerView.ViewHolder(view
             title.text = recipeEntity.title
             sourceName.text = recipeEntity.sourceName
             view.setOnClickListener {
-                listener?.onItemSelected(recipeEntity)
+                listener?.onItemSelected(recipeEntity, it)
             }
         }
     }

@@ -1,13 +1,20 @@
 package com.example.goodfood.ui.home
 
+import android.app.ActivityOptions
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.ActivityNavigator
+import androidx.navigation.ActivityNavigatorExtras
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 
@@ -25,6 +32,8 @@ import com.example.goodfood.untils.ItemSelectedListener
 import com.example.goodfood.untils.NetworkState
 import com.example.goodfood.untils.Resource
 import com.example.goodfood.untils.Status
+
+import android.util.Pair as UtilPair
 
 
 class HomeFragment(
@@ -148,8 +157,12 @@ class HomeFragment(
         }
     }
 
-    override fun onItemSelected(data: RecipeEntity) {
+    override fun onItemSelected(data: RecipeEntity, sharedView:View?) {
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(),
+            Pair.create(sharedView!!, "${requireContext().getString(R.string.transition_key)}_${data.id}")
+        )
+        val extras = ActivityNavigatorExtras(options)
         val action = HomeFragmentDirections.actionHomeFragmentToDetailActivity(data)
-        findNavController().navigate(action)
+        findNavController().navigate(action, extras)
     }
 }

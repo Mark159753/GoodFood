@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.os.bundleOf
+import androidx.core.util.Pair
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.ActivityNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -91,9 +94,14 @@ class SearchFragment(
         }
     }
 
-    override fun onSearchItemSelected(id: Int) {
+    override fun onSearchItemSelected(id: Int, sharedView: View?) {
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(),
+            Pair.create(sharedView!!, "${requireContext().getString(R.string.transition_key)}_${id}")
+        )
+        val extras = ActivityNavigatorExtras(options)
+
         val action = SearchFragmentDirections.actionSearchFragmentToDetailActivity(id)
-        findNavController().navigate(action)
+        findNavController().navigate(action, extras)
     }
 
     private fun updateSearchList(q:String){

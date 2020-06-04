@@ -92,7 +92,7 @@ class HomeInnerRecyclerAdapter:RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
         internal fun bind(item:RecipeEntity){
             view.setOnClickListener {
-                listener?.onItemSelected(item)
+                listener?.onItemSelected(item, it)
             }
             title.text = item.title
             Picasso.get()

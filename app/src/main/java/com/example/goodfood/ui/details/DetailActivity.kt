@@ -21,6 +21,8 @@ import com.example.goodfood.ui.details.adpter.VpAdapter
 import com.example.goodfood.untils.FirestoreHelper
 import com.example.goodfood.untils.Status
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.transition.platform.MaterialContainerTransform
+import com.google.android.material.transition.platform.MaterialContainerTransformSharedElementCallback
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.EventListener
 import com.google.firebase.firestore.FirebaseFirestoreException
@@ -91,14 +93,21 @@ class DetailActivity : BaseActivity(), EventListener<QuerySnapshot> {
         }
     }
 
+    private fun setTransitionName(id:Int){
+        binder.root.transitionName = "${resources.getString(R.string.transition_key)}_$id"
+    }
+
+
 
     private fun checksArgs(){
         when {
             args.recipe != null -> {
                 val recipe = args.recipe!!
+                setTransitionName(recipe.id)
                 setRecipe(recipe)
             }
             args.recipeId != -1 -> {
+                setTransitionName(args.recipeId)
                 viewModel.getRecipeById(args.recipeId)
                 subscribeOnLoading()
             }

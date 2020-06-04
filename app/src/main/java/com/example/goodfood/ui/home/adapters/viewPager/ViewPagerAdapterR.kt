@@ -53,7 +53,7 @@ class ViewPagerAdapterR
         text.text = dataList[position].title
 
         v.setOnClickListener {
-            listener?.onItemSelected(dataList[position])
+            listener?.onItemSelected(dataList[position], it)
         }
 
         container.addView(v)
